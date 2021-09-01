@@ -75,7 +75,7 @@ class MyWindow(QWidget):
 
     def start(self):
         try:
-            temp = os.popen('C:\\Users\\NEUROPHET\\PycharmProjects\\pythonProject\\0831\dist\\argparseTest.exe --path '+self.fname[0]).read()
+            temp = os.popen('C:\\Users\\NEUROPHET\\PycharmProjects\\pythonProject\\0831\\dist\\argparseTest\\argparseTest.exe --inputpath '+self.fname[0]).read()
             tb2_data = temp.split('\n')[0]
             tb3_data = temp.split('\n')[1]
             self.tb2.setText(tb2_data)

@@ -15,15 +15,13 @@ from monai.transforms import (
 # model predict
 def get_result(file_name):
     # class 이름 리스트에 저장
-    data_dir = os.path.join("MedNIST")
-    class_names = sorted(x for x in os.listdir(data_dir)
-                         if os.path.isdir(os.path.join(data_dir, x)))
-    
+    # DATA_DIR = os.path.join("MedNIST")
+    # class_names = sorted(x for x in os.listdir(DATA_DIR)
+    #                      if os.path.isdir(os.path.join(DATA_DIR, x)))
+    class_names = ['AbdomenCT', 'BreastMRI', 'CXR', 'ChestCT', 'Hand', 'HeadCT']
     # 입력받은 파일 경로 저장, test_y는 필요 없기 때문에 임의로 0 지정
-    image_files_list = [file_name]
-    test_x = [image_files_list[0]]
+    test_x = [file_name]
     test_y = [0]
-
     val_transforms = Compose(
         [LoadImage(image_only=True), AddChannel(), ScaleIntensity(), EnsureType()])
 
@@ -57,7 +55,7 @@ def get_result(file_name):
             pred = model(test_images).argmax(dim=1)
             for i in range(len(pred)):
                 y_pred.append(pred[i].item())
-    
+
     # 분류 모델 적용 결과 리턴
     result = class_names[y_pred[0]]
     return result
@@ -66,9 +64,9 @@ def get_result(file_name):
 class MyWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setupUI()
+        self.set_ui()
 
-    def setupUI(self):
+    def set_ui(self):
         self.setWindowTitle('Classification Test')
 
         # 행방향으로 위젯 배치하기 위한 레이아웃
@@ -76,13 +74,13 @@ class MyWindow(QWidget):
         self.label1 = QLabel("파일")
         self.tb1 = QTextBrowser()
         self.tb1.setFixedSize(300, 50)
-        self.pushButton = QPushButton('파일 선택')
-        self.pushButton.setFixedSize(100,25)
-        self.pushButton.clicked.connect(self.pushButtonClicked)
+        self.push_button = QPushButton('파일 선택')
+        self.push_button.setFixedSize(100,25)
+        self.push_button.clicked.connect(self.push_button_clicked)
         hbox1.addWidget(self.label1)
         hbox1.addStretch(1)
         hbox1.addWidget(self.tb1)
-        hbox1.addWidget(self.pushButton)
+        hbox1.addWidget(self.push_button)
 
         hbox2 = QHBoxLayout()
         self.label2 = QLabel("사진")
@@ -119,22 +117,22 @@ class MyWindow(QWidget):
         self.setLayout(vbox)
         self.show()
 
-    def pushButtonClicked(self):
-        self.fname = QFileDialog.getOpenFileName(self)
-        self.tb1.setText(self.fname[0])
-        self.tb2.setHtml("""<img src="{}"/>""".format(self.fname[0]))
+    def push_button_clicked(self):
+        self.file = QFileDialog.getOpenFileName(self)
+        self.tb1.setText(self.file[0])
+        self.tb2.setHtml("""<img src="{}"/>""".format(self.file[0]))
         self.tb3.clear()
 
     def reset(self):
         self.tb1.clear()
         self.tb2.clear()
         self.tb3.clear()
-        self.fname = ""
+        self.file = ""
 
     def start(self):
         try:
-            temp = get_result(self.fname[0])
-            self.tb3.setText(temp)
+            result = get_result(self.file[0])
+            self.tb3.setText(result)
         except Exception as e:
             print(e)
 

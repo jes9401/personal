@@ -128,9 +128,6 @@ class MyWindow(QWidget):
 
     # 고객 상세 화면
     def client_detail(self, client):
-        # 등급에 따른 할인율
-        grade = {"A": "20%", "B": "15%", "C": "10%", "D": "5%", "E": "0%"}
-        
         # Dialog를 이용해 새 창 띄우기
         self.dialog = QDialog()
         self.dialog.setFixedWidth(640)
@@ -170,7 +167,9 @@ class MyWindow(QWidget):
             for j in range(4):
                 # 할인율은 위에서 선언한 딕셔너리에 대입해서 value값 사용
                 if j == 2:
-                    self.client_table.setItem(i, j, QTableWidgetItem(grade[rows[i][j]]))
+                    grade_sql = "select discount from grade_table where grade='{}'".format(rows[i][2])
+                    grade_rows = str(getQuery(grade_sql)[0][0])+"%"
+                    self.client_table.setItem(i, j, QTableWidgetItem(grade_rows))
                 else:
                     self.client_table.setItem(i, j, QTableWidgetItem(str(rows[i][j])))
             # 삭제 버튼 생성 및 거래 정보 삭제 함수와 연결
@@ -271,9 +270,8 @@ class MyWindow(QWidget):
             rows = getQuery(sql)
             msg = msgBox("등록 완료")
             msg.exec_()
-            self.management()
-            self.all_info()
             self.create_dialog.close()
+            self.reload()
         # 없을 경우 메시지 박스 출력
         else:
             msg = msgBox("모든 항목을 입력해주세요")
@@ -368,8 +366,7 @@ class MyWindow(QWidget):
             rows = getQuery(sql)
         msg = msgBox("수정 완료")
         msg.exec_()
-        self.management()
-        self.all_info()
+        self.reload()
         self.modify_dialog.close()
 
     # 고객 정보 삭제
@@ -379,8 +376,7 @@ class MyWindow(QWidget):
         if reply == QMessageBox.Yes:
             sql = "delete from client where name = '{}';".format(client)
             rows = getQuery(sql)
-            self.management()
-            self.all_info()
+            self.reload()
 
     # 거래 정보 생성
     def purchase_info_create(self, client):
@@ -423,24 +419,20 @@ class MyWindow(QWidget):
     
     # 입력받은 데이터 insert하는 함수
     def input_purchase_data(self, client):
-        # 할인율 적용을 위한 딕셔너리
-        grade_dict = {"A": 0.8, "B": 0.85, "C": 0.9, "D": 0.95, "E": 1}
         product_name = self.purchase_create_line_edit1.text()
         price = self.purchase_create_line_edit2.text()
         # 상품명, 원가 둘다 입력 받은 경우에만 수행
         if len(product_name) !=0 and len(price) != 0:
-            # 고객의 등급 조회 (A,B,C,D,E) 및 변수에 저장
-            grade_sql = "select grade from client where name ='{}'".format(client)
-            grade = getQuery(grade_sql)[0][0]
             # 고객 아이디, 상품명, 원가, 구매금액 row 생성
-            sql = "insert into purchase(client_id, product_name, price, buy_price) values ((select client_id from client where name = '{}'), '{}', {}, {});".format(client, product_name, price, int(float(price)*grade_dict[grade]))
+            # sql = "insert into purchase(client_id, product_name, price, buy_price) values ((select client_id from client where name = '{}'), '{}', {}, {});".format(client, product_name, price, int(float(price)*grade_dict[grade]))
+            sql = "insert into purchase(client_id, product_name, price, buy_price) values((select client_id from client where name ='{}'), '{}', {}, {}-({}*(select discount from grade_table where grade = (select grade from client where name='{}')) div 100));".format(client, product_name, price, price, price,  client)
             rows = getQuery(sql)
             msg = msgBox("등록 완료")
             msg.exec_()
-            self.management()
-            self.all_info()
+            self.reload()
             self.purchase_create_dialog.close()
             self.client_detail(client)
+
         else:
             msg = msgBox("모든 항목을 입력해주세요")
             msg.exec_()
@@ -454,10 +446,13 @@ class MyWindow(QWidget):
             # 고객 아이디, 상품명, 가격, 원가 4개 다 일치할 경우에 삭제
             sql = "delete from purchase where client_id = (select client_id from client where name ='{}') && product_name = '{}' && price = {} && buy_price = {};".format(data[0], data[1], data[2], data[3])
             rows = getQuery(sql)
-            self.management()
-            self.all_info()
             self.client_detail(data[0])
+            self.reload()
 
+    def reload(self):
+        self.all_info()
+        # self.search()
+        self.management()
 
 # 메시지박스 생성 함수
 def msgBox(text):

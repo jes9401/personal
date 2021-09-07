@@ -19,7 +19,7 @@ class Model(QtCore.QObject):
         conn.close()
         return data
 
-    # table 헤더 설정하는 함수
+    # table 헤더 설정
     def setHeader(self, table, hlabels):
         table.setColumnCount(len(hlabels))
         table.setHorizontalHeaderLabels(hlabels)

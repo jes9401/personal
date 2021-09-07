@@ -5,6 +5,7 @@ from View2Module import View2
 from View3Module import View3
 from ControllerModule import Controller
 
+
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()

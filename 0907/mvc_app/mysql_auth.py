@@ -3,7 +3,7 @@ info = {
     "host": "localhost",
     "user": "root",
     "passwd": "root",
-    "port": 3306,
+    "port": "3306",
     "charset": "utf8"
 }
 

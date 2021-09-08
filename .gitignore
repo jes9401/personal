@@ -2,3 +2,5 @@
 0901/MedNIST
 0902/dist
 0902/build
+*.exe
+/**/encrypt_test.py

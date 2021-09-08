@@ -1,7 +1,8 @@
 import pymysql
+import mysql_auth
+from encrypt_test import decrypt
 from PyQt5 import QtCore
 from PyQt5.QtWidgets import *
-import mysql_auth
 
 
 class Model(QtCore.QObject):
@@ -11,7 +12,11 @@ class Model(QtCore.QObject):
     # sql 쿼리 수행하는 함수
     def get_query(self, sql):
         mysql_info = mysql_auth.info
-        conn = pymysql.connect(host=mysql_info['host'], user=mysql_info['user'], password=mysql_info['passwd'], db=mysql_info['db'], charset=mysql_info['charset'])
+        conn = pymysql.connect(host=mysql_info['host'],
+                               user=mysql_info['user'],
+                               password=mysql_info['passwd'],
+                               db=mysql_info['db'],
+                               charset=mysql_info['charset'])
         curs = conn.cursor()
         curs.execute(sql)
         data = curs.fetchall()

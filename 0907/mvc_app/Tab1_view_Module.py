@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from functools import partial
 
 
-class View1():
+class Tab1_View():
     def __init__(self, main_window):
         self.main_window = main_window
 
@@ -46,7 +46,7 @@ class View1():
         client_detail_layout = QHBoxLayout()
         self.main_window.purchase_create_button = QPushButton("거래 내역 추가")
         # 거래내역 추가 화면으로 연결
-        self.main_window.purchase_create_button.clicked.connect(partial(self.main_window.controller.purchase_info_create, client))
+        self.main_window.purchase_create_button.clicked.connect(partial(self.main_window.controller.purchase_create, client))
         client_detail_layout.addStretch(5)
         client_detail_layout.addWidget(self.main_window.purchase_create_button)
 
@@ -91,3 +91,39 @@ class View1():
         detail_layout.addWidget(self.main_window.client_table2)
         self.main_window.dialog.setLayout(detail_layout)
         self.main_window.dialog.show()
+
+    def purchase_create_view(self, client):
+        self.main_window.purchase_create_dialog = QDialog()
+        self.main_window.purchase_create_dialog.setFixedWidth(320)
+        self.main_window.purchase_create_dialog.setFixedHeight(240)
+        self.main_window.purchase_create_dialog.setWindowTitle("거래 등록")
+        self.main_window.purchase_create_dialog.setWindowModality(Qt.ApplicationModal)
+
+        purchase_create_h_layout1 = QHBoxLayout()
+        label1 = QLabel("상품명")
+        self.main_window.purchase_create_line_edit1 = QLineEdit()
+        self.main_window.purchase_create_line_edit1.setFixedWidth(250)
+        purchase_create_h_layout1.addWidget(label1)
+        purchase_create_h_layout1.addWidget(self.main_window.purchase_create_line_edit1)
+
+        purchase_create_h_layout2 = QHBoxLayout()
+        label2 = QLabel("원가")
+        self.main_window.purchase_create_line_edit2 = QLineEdit()
+        self.main_window.purchase_create_line_edit2.setFixedWidth(250)
+        purchase_create_h_layout2.addWidget(label2)
+        purchase_create_h_layout2.addWidget(self.main_window.purchase_create_line_edit2)
+
+        purchase_create_h_layout3 = QHBoxLayout()
+        self.main_window.purchase_input_button = QPushButton("등록")
+        self.main_window.purchase_input_button.clicked.connect(partial(self.main_window.controller.input_purchase_data, client))
+        purchase_create_h_layout3.addStretch(3)
+        purchase_create_h_layout3.addWidget(self.main_window.purchase_input_button)
+        purchase_create_h_layout3.addStretch(3)
+
+        purchase_create_layout = QVBoxLayout()
+        purchase_create_layout.addLayout(purchase_create_h_layout1)
+        purchase_create_layout.addLayout(purchase_create_h_layout2)
+        purchase_create_layout.addStretch(3)
+        purchase_create_layout.addLayout(purchase_create_h_layout3)
+        self.main_window.purchase_create_dialog.setLayout(purchase_create_layout)
+        self.main_window.purchase_create_dialog.show()

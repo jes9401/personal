@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from functools import partial
 
 
-class View3():
+class Tab3_View():
     def __init__(self, main_window):
         self.main_window = main_window
 
@@ -11,7 +11,7 @@ class View3():
     def tab3(self):
         tab3 = QWidget()
         self.add_button = QPushButton("고객 등록")
-        self.add_button.clicked.connect(self.main_window.view3.client_info_create_view)
+        self.add_button.clicked.connect(self.main_window.tab3_view.client_info_create_view)
         self.main_window.table3 = QTableWidget()
         self.main_window.table3.setEditTriggers(QAbstractItemView.NoEditTriggers)
         hlabels = ["고객 이름", "수정", "삭제"]

@@ -11,7 +11,7 @@ class Controller():
     def all_info(self):
         sql = "select * from all_info;"
         rows = self.main_window.model.getQuery(sql)
-        self.main_window.view1.tab1_reload(rows)
+        self.main_window.tab1_view.tab1_reload(rows)
 
     # 고객 상세 화면 (자세히 버튼 눌렀을 때)
     def client_detail(self, client):
@@ -25,45 +25,11 @@ class Controller():
         # 고객의 전체 거래 데이터 (총 거래 수, 원가 합, 구매금액 합)
         sql = "select 거래수, 원가합, 구매금액합 from all_info where 이름 ='{}';".format(client)
         rows2 = self.main_window.model.getQuery(sql)
-        self.main_window.view1.client_detail_view(rows1, rows2, client)
+        self.main_window.tab1_view.client_detail_view(rows1, rows2, client)
     
-    # 거래 정보 생성
-    def purchase_info_create(self, client):
-        self.main_window.purchase_create_dialog = QDialog()
-        self.main_window.purchase_create_dialog.setFixedWidth(320)
-        self.main_window.purchase_create_dialog.setFixedHeight(240)
-        self.main_window.purchase_create_dialog.setWindowTitle("거래 등록")
-        self.main_window.purchase_create_dialog.setWindowModality(Qt.ApplicationModal)
-
-        purchase_create_h_layout1 = QHBoxLayout()
-        label1 = QLabel("상품명")
-        self.main_window.purchase_create_line_edit1 = QLineEdit()
-        self.main_window.purchase_create_line_edit1.setFixedWidth(250)
-        purchase_create_h_layout1.addWidget(label1)
-        purchase_create_h_layout1.addWidget(self.main_window.purchase_create_line_edit1)
-
-        purchase_create_h_layout2 = QHBoxLayout()
-        label2 = QLabel("원가")
-        self.main_window.purchase_create_line_edit2 = QLineEdit()
-        self.main_window.purchase_create_line_edit2.setFixedWidth(250)
-        purchase_create_h_layout2.addWidget(label2)
-        purchase_create_h_layout2.addWidget(self.main_window.purchase_create_line_edit2)
-
-        purchase_create_h_layout3 = QHBoxLayout()
-        # "등록" 버튼 누를 경우 insert문 수행하는 함수 호출
-        self.main_window.purchase_input_button = QPushButton("등록")
-        self.main_window.purchase_input_button.clicked.connect(partial(self.main_window.controller.input_purchase_data, client))
-        purchase_create_h_layout3.addStretch(3)
-        purchase_create_h_layout3.addWidget(self.main_window.purchase_input_button)
-        purchase_create_h_layout3.addStretch(3)
-
-        purchase_create_layout = QVBoxLayout()
-        purchase_create_layout.addLayout(purchase_create_h_layout1)
-        purchase_create_layout.addLayout(purchase_create_h_layout2)
-        purchase_create_layout.addStretch(3)
-        purchase_create_layout.addLayout(purchase_create_h_layout3)
-        self.main_window.purchase_create_dialog.setLayout(purchase_create_layout)
-        self.main_window.purchase_create_dialog.show()
+    # 거래 정보 생성 창
+    def purchase_create(self, client):
+        self.main_window.tab1_view.purchase_create_view(client)
     
     # 거래 정보 생성
     def input_purchase_data(self, client):
@@ -112,7 +78,7 @@ class Controller():
             self.main_window.button_list = []
             # 조회 결과가 1개 이상일 경우
             if len(rows) > 0:
-                self.main_window.view2.search_view(rows)
+                self.main_window.tab2_view.search_view(rows)
             # 조회 결과가 없을 경우
             else:
                 msg = self.main_window.model.msgBox("검색 결과가 없습니다.")
@@ -128,7 +94,7 @@ class Controller():
         # 고객의 이름만 조회
         sql = "select name from client;"
         rows = self.main_window.model.getQuery(sql)
-        self.main_window.view3.management_view(rows)
+        self.main_window.tab3_view.management_view(rows)
 
     # 고객 정보 insert
     def input_data(self):
@@ -162,7 +128,7 @@ class Controller():
         # 해당 고객의 정보를 조회(이름, 등급, 번호)
         sql = "select * from client where name = '{}';".format(client)
         rows = self.main_window.model.getQuery(sql)
-        self.main_window.view3.client_info_modify_view(rows)
+        self.main_window.tab3_view.client_info_modify_view(rows)
     
     # 고객 정보 수정
     def modify_data(self, rows):

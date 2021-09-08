@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from functools import partial
 
 
-class View2():
+class Tab2_View():
     def __init__(self, main_window):
         self.main_window = main_window
     

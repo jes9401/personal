@@ -27,8 +27,8 @@ info = {
 #     ON UPDATE NO ACTION);
 #
 # create view all_info as
-# select a.name as "이름", IFNULL(b.cnt, 0) as "거래수",
-#         IFNULL(b.p,0) as "원가합", IFNULL(b.bp,0) as "구매금액합"
+# select a.name as "name", IFNULL(b.cnt, 0) as "purchase_count",
+#         IFNULL(b.p,0) as "sum_price", IFNULL(b.bp,0) as "sum_buyprice"
 #         from client as a left outer join(
 #         	select client_id, count(*) as cnt, sum(price) as p, sum(buy_price) as bp
 #         	from purchase

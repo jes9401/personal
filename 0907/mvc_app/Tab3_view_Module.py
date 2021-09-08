@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from functools import partial
 
 
-class Tab3_View():
+class Tab3View():
     def __init__(self, main_window):
         self.main_window = main_window
 
@@ -15,7 +15,7 @@ class Tab3_View():
         self.main_window.table3 = QTableWidget()
         self.main_window.table3.setEditTriggers(QAbstractItemView.NoEditTriggers)
         hlabels = ["고객 이름", "수정", "삭제"]
-        self.main_window.model.setHeader(self.main_window.table3, hlabels)
+        self.main_window.model.set_header(self.main_window.table3, hlabels)
         tab3_layout_h = QHBoxLayout()
         tab3_layout_h.addStretch(5)
         tab3_layout_h.addWidget(self.add_button)

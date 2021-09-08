@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from functools import partial
 
 
-class Tab1_View():
+class Tab1View():
     def __init__(self, main_window):
         self.main_window = main_window
 
@@ -14,7 +14,7 @@ class Tab1_View():
         self.main_window.table1 = QTableWidget()
         self.main_window.table1.setEditTriggers(QAbstractItemView.NoEditTriggers)
         hlabels = ["고객 이름", "구매 건수", "원가 총합", "구매금액 총합", "거래 내역"]
-        self.main_window.model.setHeader(self.main_window.table1, hlabels)
+        self.main_window.model.set_header(self.main_window.table1, hlabels)
         tab1_layout.addWidget(self.main_window.table1)
         tab1.setLayout(tab1_layout)
         tab1.actionEvent(self.main_window.controller.all_info())
@@ -60,16 +60,15 @@ class Tab1_View():
         hlabels = ["상품명", "원가", "할인율", "구매 금액", "삭제"]
         hlabels2 = ["총 거래 수", "원가 합", " 총 구매금액"]
         # table 헤더 설정
-        self.main_window.model.setHeader(self.main_window.client_table, hlabels)
-        self.main_window.model.setHeader(self.main_window.client_table2, hlabels2)
+        self.main_window.model.set_header(self.main_window.client_table, hlabels)
+        self.main_window.model.set_header(self.main_window.client_table2, hlabels2)
         self.main_window.client_table.setRowCount(len(rows1))
         purchase_delete_button_list = []
         for i in range(len(rows1)):
             for j in range(4):
-                # 할인율은 위에서 선언한 딕셔너리에 대입해서 value값 사용
                 if j == 2:
                     grade_sql = "select discount from grade_table where grade='{}'".format(rows1[i][2])
-                    grade_rows = str(self.main_window.model.getQuery(grade_sql)[0][0]) + "%"
+                    grade_rows = str(self.main_window.model.get_query(grade_sql)[0][0]) + "%"
                     self.main_window.client_table.setItem(i, j, QTableWidgetItem(grade_rows))
                 else:
                     self.main_window.client_table.setItem(i, j, QTableWidgetItem(str(rows1[i][j])))
@@ -92,6 +91,7 @@ class Tab1_View():
         self.main_window.dialog.setLayout(detail_layout)
         self.main_window.dialog.show()
 
+    # 거래 정보 생성 창
     def purchase_create_view(self, client):
         self.main_window.purchase_create_dialog = QDialog()
         self.main_window.purchase_create_dialog.setFixedWidth(320)

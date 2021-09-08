@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from functools import partial
 
 
-class Tab2_View():
+class Tab2View():
     def __init__(self, main_window):
         self.main_window = main_window
     
@@ -15,7 +15,7 @@ class Tab2_View():
         self.main_window.table2 = QTableWidget()
         self.main_window.table2.setEditTriggers(QAbstractItemView.NoEditTriggers)
         hlabels = ["고객 이름", "전화 번호", "등급", "거래 내역"]
-        self.main_window.model.setHeader(self.main_window.table2, hlabels)
+        self.main_window.model.set_header(self.main_window.table2, hlabels)
         tab2_layout_h = QHBoxLayout()
         tab2_layout_h.addWidget(self.main_window.line_edit)
         tab2_layout_h.addWidget(search_button)

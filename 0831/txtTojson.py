@@ -1,7 +1,6 @@
 import glob
 import json
 import os
-import zipfile
 
 
 def get_file_name(file):

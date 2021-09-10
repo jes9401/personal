@@ -18,7 +18,7 @@ class MyWindow(QWidget):
         self.tb1 = QTextBrowser()
         self.tb1.setFixedSize(350, 25)
         self.pushButton = QPushButton('파일 선택')
-        self.pushButton.clicked.connect(self.pushButtonClicked)
+        self.pushButton.clicked.connect(self.button_click)
         hbox1.addWidget(self.label1)
         hbox1.addWidget(self.tb1)
         hbox1.addWidget(self.pushButton)
@@ -63,9 +63,9 @@ class MyWindow(QWidget):
         self.setLayout(vbox)
         self.show()
 
-    def pushButtonClicked(self):
+    def button_click(self):
         self.fname = QFileDialog.getOpenFileName(self)
-        self.tb1.setText(self.fname[0])
+        self.tb1.setText(self.fname[0].split("/")[-1])
 
     def reset(self):
         self.tb1.clear()
@@ -75,7 +75,7 @@ class MyWindow(QWidget):
 
     def start(self):
         try:
-            temp = os.popen('C:\\Users\\NEUROPHET\\PycharmProjects\\pythonProject\\0831\\dist\\argparseTest\\argparseTest.exe --inputpath '+self.fname[0]).read()
+            temp = os.popen('python C:\\Users\\NEUROPHET\\PycharmProjects\\pythonProject\\0831\\argparseTest.py --input_path '+self.fname[0]).read()
             tb2_data = temp.split('\n')[0]
             tb3_data = temp.split('\n')[1]
             self.tb2.setText(tb2_data)

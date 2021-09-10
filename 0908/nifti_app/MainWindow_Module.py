@@ -22,6 +22,7 @@ class MainWindow(QWidget):
         file_layout.addStretch(1)
         file_layout.addWidget(file_choice_button)
 
+        # 슬라이더, label, 이미지 출력하는 레이아웃 => x축
         x_layout = QHBoxLayout()
         self.image_select_slider_x = QSlider(Qt.Horizontal)
         self.image_select_slider_x.valueChanged.connect(self.controller.show_image_number)
@@ -37,6 +38,7 @@ class MainWindow(QWidget):
         x_layout_2.addLayout(x_layout)
         x_layout_2.addWidget(self.image_section_x)
 
+        # 슬라이더, label, 이미지 출력하는 레이아웃 => y축
         y_layout = QHBoxLayout()
         self.image_select_slider_y = QSlider(Qt.Horizontal)
         self.image_select_slider_y.valueChanged.connect(self.controller.show_image_number)
@@ -53,6 +55,7 @@ class MainWindow(QWidget):
         y_layout_2.addStretch(1)
         y_layout_2.addWidget(self.image_section_y)
 
+        # 슬라이더, label, 이미지 출력하는 레이아웃 => z축
         z_layout = QHBoxLayout()
         self.image_select_slider_z = QSlider(Qt.Horizontal)
         self.image_select_slider_z.valueChanged.connect(self.controller.show_image_number)
@@ -74,11 +77,13 @@ class MainWindow(QWidget):
         image_section_layout.addLayout(y_layout_2)
         image_section_layout.addLayout(z_layout_2)
 
+        # 정보 출력하는 레이아웃
         image_info_layout = QVBoxLayout()
         self.image_info = QTextBrowser()
         self.image_info.hide()
         image_info_layout.addWidget(self.image_info)
 
+        # 전체 레이아웃
         vbox = QVBoxLayout()
         vbox.addLayout(file_layout)
         vbox.addLayout(image_section_layout)

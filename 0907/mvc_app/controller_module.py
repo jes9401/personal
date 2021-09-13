@@ -96,7 +96,8 @@ class Controller():
     # 고객 정보 insert
     def input_data(self):
         name = self.main_window.create_line_edit1.text()
-        grade = self.main_window.create_line_edit2.text()
+        # grade = self.main_window.create_line_edit2.text()
+        grade = self.main_window.create_combobox.currentText()
         phone = self.main_window.create_line_edit3.text()
         # 세 칸 모두 입력한 값이 있으면 수행
         if len(name) != 0 and len(grade) != 0 and len(phone) != 0:

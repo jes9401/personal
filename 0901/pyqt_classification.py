@@ -45,7 +45,7 @@ def get_result(file_name):
     model = DenseNet121(spatial_dims=2, in_channels=1,
                         out_channels=6).to(device)
     model.load_state_dict(torch.load(
-        os.path.join("best_metric_model.pth")))
+        os.path.join(os.path.abspath("best_metric_model.pth"))))
     model.eval()
     y_pred = []
 

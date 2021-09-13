@@ -25,8 +25,8 @@ class MainWindow(QWidget):
         # 슬라이더, label, 이미지 출력하는 레이아웃 => x축
         x_layout = QHBoxLayout()
         self.image_select_slider_x = QSlider(Qt.Horizontal)
-        self.image_select_slider_x.valueChanged.connect(self.controller.show_image_number)
-        self.image_select_slider_x.valueChanged.connect(partial(self.controller.image_select, "x"))
+        self.image_select_slider_x.sliderReleased.connect(self.controller.show_image_number)
+        self.image_select_slider_x.sliderReleased.connect(partial(self.controller.image_select, "x"))
         self.image_select_slider_x.hide()
         self.size_label_x = QLabel()
         x_layout.addWidget(self.image_select_slider_x)
@@ -41,8 +41,9 @@ class MainWindow(QWidget):
         # 슬라이더, label, 이미지 출력하는 레이아웃 => y축
         y_layout = QHBoxLayout()
         self.image_select_slider_y = QSlider(Qt.Horizontal)
-        self.image_select_slider_y.valueChanged.connect(self.controller.show_image_number)
-        self.image_select_slider_y.valueChanged.connect(partial(self.controller.image_select, "y"))
+        # valueChanged(값이 변할 때) => sliderReleased(슬라이더를 놓을 때)
+        self.image_select_slider_y.sliderReleased.connect(self.controller.show_image_number)
+        self.image_select_slider_y.sliderReleased.connect(partial(self.controller.image_select, "y"))
         self.image_select_slider_y.hide()
         self.size_label_y = QLabel()
         y_layout.addWidget(self.image_select_slider_y)
@@ -58,8 +59,8 @@ class MainWindow(QWidget):
         # 슬라이더, label, 이미지 출력하는 레이아웃 => z축
         z_layout = QHBoxLayout()
         self.image_select_slider_z = QSlider(Qt.Horizontal)
-        self.image_select_slider_z.valueChanged.connect(self.controller.show_image_number)
-        self.image_select_slider_z.valueChanged.connect(partial(self.controller.image_select, "z"))
+        self.image_select_slider_z.sliderReleased.connect(self.controller.show_image_number)
+        self.image_select_slider_z.sliderReleased.connect(partial(self.controller.image_select, "z"))
         self.image_select_slider_z.hide()
         self.size_label_z = QLabel()
         z_layout.addWidget(self.image_select_slider_z)

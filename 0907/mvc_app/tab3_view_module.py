@@ -60,9 +60,18 @@ class Tab3View():
 
         create_h_layout2 = QHBoxLayout()
         label2 = QLabel("등급")
-        self.main_window.create_line_edit2 = QLineEdit()
+        # self.main_window.create_line_edit2 = QLineEdit()
+        self.main_window.create_combobox = QComboBox()
+        self.main_window.create_combobox.addItem("A")
+        self.main_window.create_combobox.addItem("B")
+        self.main_window.create_combobox.addItem("C")
+        self.main_window.create_combobox.addItem("D")
+        self.main_window.create_combobox.addItem("E")
         create_h_layout2.addWidget(label2)
-        create_h_layout2.addWidget(self.main_window.create_line_edit2)
+        # create_h_layout2.addWidget(self.main_window.create_line_edit2)
+        create_h_layout2.addWidget(self.main_window.create_combobox)
+        create_h_layout2.addStretch(10)
+
 
         create_h_layout3 = QHBoxLayout()
         label3 = QLabel("번호")

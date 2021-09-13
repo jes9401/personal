@@ -2,9 +2,9 @@ from functools import partial
 
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import *
-from Controller_Module import Controller
-from Model_Module import Model
-from View_Module import View
+from controller_module import Controller
+from model_module import Model
+from view_module import View
 
 
 class MainWindow(QWidget):

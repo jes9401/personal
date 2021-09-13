@@ -26,6 +26,17 @@ info = {
 #     ON DELETE CASCADE
 #     ON UPDATE NO ACTION);
 #
+# CREATE TABLE `grade_table` (
+#   `grade` VARCHAR(5) NOT NULL,
+#   `discount` INT NOT NULL
+# );
+#
+# insert into grade_table(grade, discount) values("A", 20);
+# insert into grade_table(grade, discount) values("B", 15);
+# insert into grade_table(grade, discount) values("C", 10);
+# insert into grade_table(grade, discount) values("D", 5);
+# insert into grade_table(grade, discount) values("E", 0);
+#
 # create view all_info as
 # select a.name as "name", IFNULL(b.cnt, 0) as "purchase_count",
 #         IFNULL(b.p,0) as "sum_price", IFNULL(b.bp,0) as "sum_buyprice"

@@ -1,9 +1,9 @@
 from PyQt5.QtWidgets import *
-from ModelModule import Model
-from Tab1_view_Module import Tab1View
-from Tab2_view_Module import Tab2View
-from Tab3_view_Module import Tab3View
-from ControllerModule import Controller
+from model_module import Model
+from tab1_view_module import Tab1View
+from tab2_view_module import Tab2View
+from tab3_view_module import Tab3View
+from controller_module import Controller
 
 
 class MainWindow(QWidget):

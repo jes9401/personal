@@ -1,9 +1,10 @@
-0901/dist
-0901/MedNIST
-0902/dist
-0902/build
+base/brain
+base/brain_json
+base/output
+/**/build
+/**/dist
+nifti/nifti_file
+
 *.exe
 /**/encrypt_test.py
-0908/nifti
-jupyter/
 *.spec

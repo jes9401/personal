@@ -10,3 +10,4 @@ if __name__ == "__main__":
     form.setFixedHeight(480)
     form.show()
     app.exec_()
+

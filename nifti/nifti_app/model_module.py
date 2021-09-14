@@ -28,14 +28,11 @@ class Model(QtCore.QObject):
             image = self.data.dataobj[:, :, number]
         # numpy array 형태의 데이터를 Image 객체로 변환
         image = Image.fromarray(image)
-        image = image.convert("RGB")
+        image = image.convert("RGBA")
         # 좌측으로 90도 회전
         image = image.transpose(Image.ROTATE_90)
-        r, g, b = image.split()
-        image = Image.merge("RGB", (b, g, r))
-        rgba_image = image.convert("RGBA")
         # byte 형태로 변환 => QImage 객체 생성할 때 파라미터 값
-        image_data = rgba_image.tobytes("raw", "RGBA")
+        image_data = image.tobytes("raw", "RGBA")
         q_image = QtGui.QImage(image_data, image.size[0], image.size[1], QtGui.QImage.Format_ARGB32)
         return q_image
     

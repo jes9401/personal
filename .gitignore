@@ -4,7 +4,7 @@ base/output
 /**/build
 /**/dist
 nifti/nifti_file
-
+/**/__pycache__
 *.exe
 /**/encrypt_test.py
 *.spec

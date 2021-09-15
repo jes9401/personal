@@ -8,3 +8,4 @@ nifti/nifti_file
 *.exe
 /**/encrypt_test.py
 *.spec
+/**/data

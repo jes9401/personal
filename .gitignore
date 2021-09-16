@@ -9,3 +9,4 @@ nifti/nifti_file
 /**/encrypt_test.py
 *.spec
 /**/data
+/**/.ipynb_checkpoints

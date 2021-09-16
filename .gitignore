@@ -10,3 +10,4 @@ nifti/nifti_file
 *.spec
 /**/data
 /**/.ipynb_checkpoints
+/**/mysql_auth.py

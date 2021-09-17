@@ -11,3 +11,4 @@ nifti/nifti_file
 /**/data
 /**/.ipynb_checkpoints
 /**/mysql_auth.py
+/**/*.xlsx

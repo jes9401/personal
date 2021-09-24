@@ -6,7 +6,7 @@ if __name__ == '__main__':
     mylogger.setLevel(logging.INFO)
 
     formatter = logging.Formatter("%(asctime)s - %(name)s -%(levelname)s - %(message)s")
-
+    "%(asctime)s - %(module)s - %(levelname)s - %(message)s"
     stream_hander = logging.StreamHandler()
     stream_hander.setFormatter(formatter)
     mylogger.addHandler(stream_hander)
